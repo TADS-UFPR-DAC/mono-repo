@@ -7,3 +7,6 @@ cd ..
 cd conta-service
 sudo sh ./mvnw spring-boot:build-image
 cd ..
+cd auth-service
+sudo sh ./mvnw spring-boot:build-image
+cd ..
