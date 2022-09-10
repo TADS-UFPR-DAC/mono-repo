@@ -8,6 +8,9 @@ cd ..
 cd conta-service
 ./mvnw spring-boot:build-image
 cd ..
+cd cliente-service
+./mvnw spring-boot:build-image
+cd ..
 cd auth-service
 ./mvnw spring-boot:build-image
 cd ..
