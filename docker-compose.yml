@@ -5,7 +5,7 @@ services:
       hostname: rabbitmq
       image: rabbitmq:3-management
       ports:
-        -  "15762:15762"
+        -  "15672:15672"
       networks:
       - bantads-net
 #------------------------------- API-GATEWAY ---------------------------------------
