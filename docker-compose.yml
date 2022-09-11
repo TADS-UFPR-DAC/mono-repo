@@ -19,6 +19,11 @@ services:
     environment:
       - SYSTEM_PORT=3000
       - SECRET=secret
+      - RABBIT_HOST=rabbitmq
+      - CONTA_SERVICE=conta-service
+      - CONTA_CLIENTE=cliente-service
+      - CONTA_GERENTE=gerente-service
+      - CONTA_AUTH=auth-service
 
 #------------------------------- AUTH ----------------------------------------------
   auth-service:
