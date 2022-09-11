@@ -26,6 +26,7 @@ services:
       container_name: auth-service
       depends_on:
           - auth-db
+          - rabbitmq
       ports:
         - "5003:5003"
       networks:
@@ -33,6 +34,7 @@ services:
           - bantads-net
       environment:
           - DATABASE_HOST=auth-db
+          - RABBIT_HOST=rabbitmq
   auth-db:
       container_name: auth-db
       image: postgres
@@ -48,6 +50,7 @@ services:
       container_name: cliente-service
       depends_on:
           - cliente-db
+          - rabbitmq
       ports:
         - "5001:5001"
       networks:
@@ -55,6 +58,7 @@ services:
           - bantads-net
       environment:
           - DATABASE_HOST=cliente-db
+          - RABBIT_HOST=rabbitmq
   cliente-db:
       container_name: cliente-db
       image: postgres
