@@ -4,6 +4,8 @@ services:
       container_name: rabbitmq
       hostname: rabbitmq
       image: rabbitmq:3-management
+      ports:
+        -  "15762:15762"
       networks:
       - bantads-net
 #------------------------------- API-GATEWAY ---------------------------------------
