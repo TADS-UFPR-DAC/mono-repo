@@ -28,28 +28,28 @@ cd ..
 #-------------------------------------------------------------------------------------------------------
 -------------------------------------------- Conta Service --------------------------------------------
 cd conta-service
-sudo sh ./mvnw spring-boot:build-image #BUILD Conta Service IMAGE
+./mvnw spring-boot:build-image #BUILD Conta Service IMAGE
 docker run --network conta-network --name conta-service -p 5000:5000 -e DATABASE_HOST=conta-bd-read -e SECOND_DATABASE_HOST=conta-bd-create -d conta-service:0.0.1-SNAPSHOT #DEPLOY CONTAINER
 docker network connect bantads-network conta-service #ATTACH MAIN NETWORK
 cd ..
 #-------------------------------------------------------------------------------------------------------
 #-------------------------------------------- Cliente Service --------------------------------------------
 cd cliente-service
-sudo sh ./mvnw spring-boot:build-image #BUILD Conta Service IMAGE
+./mvnw spring-boot:build-image #BUILD Conta Service IMAGE
 docker run --network cliente-network --name cliente-service -p 5001:5001 -e DATABASE_HOST=cliente-bd -d cliente-service:0.0.1-SNAPSHOT #DEPLOY CONTAINER
 docker network connect bantads-network cliente-service #ATTACH MAIN NETWORK
 cd ..
 #-------------------------------------------------------------------------------------------------------
 #-------------------------------------------- Gerente Service ------------------------------------------
 cd gerente-service
-sudo sh ./mvnw spring-boot:build-image #BUILD Gerente Service IMAGE
+./mvnw spring-boot:build-image #BUILD Gerente Service IMAGE
 docker run --network gerente-network --name gerente-service -p 5002:5002 -e DATABASE_HOST=gerente-db -d gerente-service:0.0.1-SNAPSHOT #DEPLOY CONTAINER
 docker network connect bantads-network gerente-service #ATTACH MAIN NETWORK
 cd ..
 #-------------------------------------------------------------------------------------------------------
 #-------------------------------------------- Auth Service --------------------------------------------
 cd auth-service
-sudo sh ./mvnw spring-boot:build-image #BUILD Auth Service IMAGE
+./mvnw spring-boot:build-image #BUILD Auth Service IMAGE
 docker run --network auth-network --name auth-service -p 5003:5003 -e DATABASE_HOST=auth-bd -d auth-service:0.0.1-SNAPSHOT #DEPLOY CONTAINER
 docker network connect bantads-network auth-service #ATTACH MAIN NETWORK
 cd ..
