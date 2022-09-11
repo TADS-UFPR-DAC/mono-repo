@@ -14,6 +14,9 @@ services:
       - "3000:3000"
     networks:
       - bantads-net  
+    environment:
+      - SYSTEM_PORT=3000
+      - SECRET=secret
 
 #------------------------------- AUTH ----------------------------------------------
   auth-service:
