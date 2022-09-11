@@ -1,4 +1,5 @@
 #!/bin/sh
+apt install docker-compose
 git clone https://github.com/TADS-UFPR-DAC/gerente-service
 git clone https://github.com/TADS-UFPR-DAC/conta-service
 git clone https://github.com/TADS-UFPR-DAC/auth-service
@@ -19,4 +20,5 @@ cd ..
 cd auth-service
 mvn package -DskipTests
 cd ..
+docker-compose build
 docker-compose up -d
