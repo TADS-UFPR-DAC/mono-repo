@@ -26,7 +26,7 @@ docker build -t api-gateway . #BUILD API GATEWAY IMAGE
 docker run --network bantads-network --name api-gateway -p 3000:3000 -d api-gateway # DEPLOY CONTAINER
 cd ..
 #-------------------------------------------------------------------------------------------------------
--------------------------------------------- Conta Service --------------------------------------------
+#-------------------------------------------- Conta Service --------------------------------------------
 cd conta-service
 ./mvnw spring-boot:build-image #BUILD Conta Service IMAGE
 docker run --network conta-network --name conta-service -p 5000:5000 -e DATABASE_HOST=conta-bd-read -e SECOND_DATABASE_HOST=conta-bd-create -d conta-service:0.0.1-SNAPSHOT #DEPLOY CONTAINER

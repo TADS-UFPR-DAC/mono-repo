@@ -1,0 +1,134 @@
+version: "3.0"
+services:
+  rabbitmq:
+      container_name: rabbitmq
+      image: rabbitmq:3-management
+      ports:
+        - "15672:15672"
+        - "5672:5672"
+      networks:
+      - bantads-net
+#------------------------------- API-GATEWAY ---------------------------------------
+  api-gatway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "3000:3000"
+    networks:
+      - bantads-net  
+
+#------------------------------- AUTH ----------------------------------------------
+  auth-service:
+      build: ./auth-service
+      container_name: auth-service
+      depends_on:
+          - auth-db
+      ports:
+        - "5003:5003"
+      networks:
+          - auth-net
+          - bantads-net
+      environment:
+          - DATABASE_HOST=auth-db
+  auth-db:
+      container_name: auth-db
+      image: postgres
+      networks:
+          - auth-net
+      environment:
+        - POSTGRES_DB=postgres
+        - POSTGRES_PASSWORD=password
+#--------------------------------------------------------------------------------
+#------------------------------- CLIENTE ----------------------------------------
+  cliente-service:
+      build: ./cliente-service
+      container_name: cliente-service
+      depends_on:
+          - cliente-db
+      ports:
+        - "5001:5001"
+      networks:
+          - cliente-net
+          - bantads-net
+      environment:
+          - DATABASE_HOST=cliente-db
+  cliente-db:
+      container_name: cliente-db
+      image: postgres
+      networks:
+          - cliente-net
+      environment:
+        - POSTGRES_DB=postgres
+        - POSTGRES_PASSWORD=password
+#--------------------------------------------------------------------------------
+#------------------------------- CONTA ----------------------------------------
+  conta-service:
+      build: ./conta-service
+      container_name: conta-service
+      depends_on:
+          - conta-db-read
+          - conta-db-create
+          - rabbitmq
+      ports:
+        - "5000:5000"
+      networks:
+          - conta-net
+          - bantads-net
+      environment:
+          - RABBIT_HOST=rabbitmq
+          - DATABASE_HOST=conta-db-read
+          - SECOND_DATABASE_HOST=conta-db-create
+  conta-db-read:
+      container_name: conta-db-read
+      image: postgres
+      networks:
+          - conta-net
+      environment:
+        - POSTGRES_DB=read
+        - POSTGRES_PASSWORD=password
+  conta-db-create:
+      container_name: conta-db-create
+      image: postgres
+      networks:
+          - conta-net
+      environment:
+        - POSTGRES_DB=create
+        - POSTGRES_PASSWORD=password
+#--------------------------------------------------------------------------------
+#------------------------------- GERENTE ----------------------------------------
+  gerente-service:
+      build: ./gerente-service
+      container_name: gerente-service
+      depends_on:
+          - gerente-db
+          - rabbitmq
+      ports:
+        - "5002:5002"
+      networks:
+          - gerente-net
+          - bantads-net
+      environment:
+          - DATABASE_HOST=gerente-db
+          - RABBIT_HOST=rabbitmq
+  gerente-db:
+      container_name: gerente-db
+      image: postgres
+      networks:
+          - gerente-net
+      environment:
+        - POSTGRES_DB=postgres
+        - POSTGRES_PASSWORD=password
+#--------------------------------------------------------------------------------
+
+
+networks:
+  gerente-net:
+      driver: bridge
+  conta-net:
+      driver: bridge
+  cliente-net:
+      driver: bridge
+  bantads-net:
+      driver: bridge
+  auth-net:
+      driver: bridge
