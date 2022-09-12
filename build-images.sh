@@ -1,21 +1,16 @@
-#!/bin/sh
-git clone https://github.com/TADS-UFPR-DAC/gerente-service
-git clone https://github.com/TADS-UFPR-DAC/conta-service
-git clone https://github.com/TADS-UFPR-DAC/auth-service
-git clone https://github.com/TADS-UFPR-DAC/api-gateway
-git clone https://github.com/TADS-UFPR-DAC/cliente-service
-cd api-gateway 
-docker build -t api-gateway . 
+!/bin/sh
+cd api-gateway
+docker build -t api-gateway .
 cd ..
-cd gerente-service 
-mvn package -DskipTests
+cd gerente-service
+./mvnw spring-boot:build-image
 cd ..
 cd conta-service
-mvn package -DskipTests
+./mvnw spring-boot:build-image
 cd ..
 cd cliente-service
-mvn package -DskipTests
+./mvnw spring-boot:build-image
 cd ..
 cd auth-service
-mvn package -DskipTests
+./mvnw spring-boot:build-image
 cd ..
